@@ -1,11 +1,24 @@
+/**
+ * @file Implements DAO managing data storage of messages. Uses mongoose TuitModel
+ * to integrate with MongoDB
+ */
 import Message from "../models/Message";
 import MessageModel from "../mongoose/MessageModel";
 import MessageDaoI from "../interfaces/MessageDao";
 
+/**
+ * @class MessageDao Implements Data Access Object managing data storage
+ * of messages
+ * @property {MessageDao} UserDao Private single instance of MessageDao
+ */
 export default class MessageDao implements MessageDaoI { 
 
     private static messageDao: MessageDao | null = null;
 
+    /**
+     * Gets a single instance of MessageDao
+     * @returns return Messages object
+     */
     public static getInstance = (): MessageDao => {
         if(MessageDao.messageDao === null) {
             MessageDao.messageDao = new MessageDao();

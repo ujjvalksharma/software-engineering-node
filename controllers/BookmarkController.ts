@@ -1,12 +1,34 @@
+/**
+ * @file Controller RESTful Web service API for bookmark resource
+ */
 import {Request, Response, Express} from "express";
 import BookmarkDao from "../daos/BookmarkDao";
 import BookmarkControllerI from "../interfaces/BookmarkController";
 
+/**
+ * @class BookmarkController Implements RESTful Web service API for users resource.
+ * Defines the following HTTP endpoints:
+ * <ul>
+ *     <li>POST /users/:uid/bookmarks/:tid to create a new bookmark instance</li>
+ *     <li>DELETE /users/:uid/bookmarks/:tid to delete bookmark based on user id and tuit id</li>
+ *     <li>GET /users/:uid/bookmarks to get bookmark based on user id</li>
+ *     <li>GET /tuits/:tid/bookmarks to get bookmark based on tuit id </li>
+ * </ul>
+ * @property {UserDao} userDao Singleton DAO implementing user CRUD operations
+ * @property {UserController} userController Singleton controller implementing
+ * RESTful Web service API
+ */
 export default class BookmarkController implements BookmarkControllerI {
 
     private static bookmarkDao: BookmarkDao = BookmarkDao.getInstance();
     private static bookmarkController: BookmarkController | null = null;
 
+     /**
+     * Creates singleton controller instance
+     * @param {Express} app Express instance to declare the RESTful Web service
+     * API
+     * @returns BookmarkController
+     */
     public static getInstance = (app: Express): BookmarkController => {
 
         if(BookmarkController.bookmarkController === null) {
@@ -15,7 +37,6 @@ export default class BookmarkController implements BookmarkControllerI {
             app.delete("/users/:uid/bookmarks/:tid", BookmarkController.bookmarkController.unBookmarkATuit);   
             app.get("/users/:uid/bookmarks", BookmarkController.bookmarkController.findTuitsBookmarkedByAUser); 
             app.get("/tuits/:tid/bookmarks", BookmarkController.bookmarkController.findUsersThatBookmarkedATuid);
-            app.get("/bookmarks/test", BookmarkController.bookmarkController.bookmarkTest);
         }
         return BookmarkController.bookmarkController;
     }
@@ -23,7 +44,7 @@ export default class BookmarkController implements BookmarkControllerI {
     private constructor() {}
 
 
-    bookmarkATuit = (req: Request, res: Response) => BookmarkController.bookmarkDao.bookmarkATuit(req.params.tid,req.params.uid)
+           bookmarkATuit = (req: Request, res: Response) => BookmarkController.bookmarkDao.bookmarkATuit(req.params.tid,req.params.uid)
            .then(bookmark => res.json(bookmark)); 
 
            unBookmarkATuit = (req: Request, res: Response) => BookmarkController.bookmarkDao.unBookmarkATuit(req.params.tid,req.params.uid)
@@ -34,9 +55,5 @@ export default class BookmarkController implements BookmarkControllerI {
 
            findUsersThatBookmarkedATuid = (req: Request, res: Response)=> BookmarkController.bookmarkDao.findUsersThatBookmarkedATuid(req.params.tid)
            .then(bookmarks => res.json(bookmarks));
-
-           bookmarkTest =(req: Request, res: Response) =>{
-               res.send('bookmarks is working!!')
-           }
 
 }

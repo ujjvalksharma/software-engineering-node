@@ -1,12 +1,34 @@
+/**
+ * @file Controller RESTful Web service API for follows resource
+ */
 import {Request, Response, Express} from "express";
 import FollowDao from "../daos/FollowDao";
 import FollowControllerI from "../interfaces/FollowController";
 
+/**
+ * @class FollowController Implements RESTful Web service API for users resource.
+ * Defines the following HTTP endpoints:
+ * <ul>
+ *     <li>POST /follow/userFollowed/:userFollowed/userFollowing/:userFollowing to create a new bookmark instance by users' id</li>
+ *     <li>DELETE /follow/userFollowed/:userFollowed/userFollowing/:userFollowing to delete bookmark based on users' id</li>
+ *     <li>GET /follow/followers/:uid to get folloers for user'id</li>
+ *     <li>GET /follow/following/:uid to get following for user id</li>
+ * </ul>
+ * @property {UserDao} FollowDao Singleton DAO implementing user CRUD operations
+ * @property {FollowController} userController Singleton controller implementing
+ * RESTful Web service API
+ */
 export default class FollowController implements FollowControllerI {
 
     private static followDao: FollowDao = FollowDao.getInstance();
     private static followController: FollowController | null = null;
 
+      /**
+     * Creates singleton controller instance
+     * @param {Express} app Express instance to declare the RESTful Web service
+     * API
+     * @returns FollowController
+     */
     public static getInstance = (app: Express): FollowController => {
 
         if(FollowController.followController === null) {

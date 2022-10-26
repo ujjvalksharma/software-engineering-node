@@ -1,11 +1,24 @@
+/**
+ * @file Implements DAO managing data storage of tuits. Uses mongoose TuitModel
+ * to integrate with MongoDB
+ */
 import TuitModel from "../mongoose/TuitModel";
 import TuitDaoI from "../interfaces/TuitDao";
 import Tuit from "../models/Tuit";
 
+/**
+ * @class TuitDao Implements Data Access Object managing data storage
+ * of tuits
+ * @property {TuitDao} tuitDao Private single instance of TuitDao
+ */
 export default class TuitDao implements TuitDaoI {
 
 
     private static tuitDao: TuitDao | null = null;
+    /**
+     * Gets a single instance of TuitDao
+     * @returns return Tuit object
+     */
     public static getInstance = (): TuitDao => {
         if(TuitDao.tuitDao === null) {
             TuitDao.tuitDao = new TuitDao();

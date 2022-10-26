@@ -1,12 +1,34 @@
+/**
+ * @file Controller RESTful Web service API for likes resource
+ */
 import {Request, Response, Express} from "express";
 import LikeDao from "../daos/LikeDao";
 import LikeControllerI from "../interfaces/LikeController";
 
+/**
+ * @class LikeController Implements RESTful Web service API for users resource.
+ * Defines the following HTTP endpoints:
+ * <ul>
+ *     <li>POST /users/:uid/likes/:tid to create tuit</li>
+ *     <li>DELETE /users/:uid/likes/:tid to delete tuit</li>
+ *     <li>GET /users/:uid/likes get tuits who like a specific user</li>
+ *     <li>GET /tuits/:tid/likes get users who like a specific tuit</li>
+ * </ul>
+ * @property {LikeDao} FollowDao Singleton DAO implementing user CRUD operations
+ * @property {LikeController} userController Singleton controller implementing
+ * RESTful Web service API
+ */
 export default class LikeController implements LikeControllerI {
 
     private static likeDao: LikeDao = LikeDao.getInstance();
     private static likeController: LikeController | null = null;
 
+     /**
+     * Creates singleton controller instance
+     * @param {Express} app Express instance to declare the RESTful Web service
+     * API
+     * @returns LikeController
+     */
     public static getInstance = (app: Express): LikeController => {
 
         if(LikeController.likeController === null) {

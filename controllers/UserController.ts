@@ -1,90 +1,20 @@
+/**
+ * @file Controller RESTful Web service API for users resource
+ */
 import {Request, Response, Express} from "express";
 import UserDao from "../daos/UserDao";
 import UserControllerI from "../interfaces/UserControllerI";
-/*
-export default class UserController implements UserControllerI {
-   app: Express; 
-   userDao: UserDao;
-   constructor(app: Express) {
-       this.app = app;
-       this.userDao = new UserDao();
-       this.app.get('/users/test', this.checkHealthy);
-       this.app.get('/users', this.findAllUsers);
-       this.app.get('/users/:userid', this.findUserById);
-       this.app.post('/users', this.createUser);
-       this.app.delete('/users/:userid', this.deleteUser);
-       this.app.put('/users/:userid', this.updateUser);
-   }
-   findAllUsers = (req: Request, res: Response) =>
-       this.userDao.findAllUsers()
-           .then(users => res.json(users));
-   findUserById = (req: Request, res: Response) =>
-       this.userDao.findUserById(req.params.userid)
-           .then(user => res.json(user));
-   createUser = (req: Request, res: Response) =>
-       this.userDao.createUser(req.body)
-           .then(user => res.json(user));
-   deleteUser = (req: Request, res: Response) =>
-       this.userDao.deleteUser(req.params.userid)
-           .then(status => res.json(status));
-   updateUser = (req: Request, res: Response) =>
-       this.userDao.updateUser(req.params.userid, req.body)
-           .then(status => res.json(status));
-
-   checkHealthy =(req: Request, res: Response)=>{
-                res.send("I am healthy")
-               console.log('I am healthy');
-             //  return "I am healthy";
-           }        
-}
-*/
-/*
-const userDao = new UserDao();
-module.exports = (app: Express) => { 
-
- 
-   const checkHealthy =(req: Request, res: Response)=>{
-        res.send("I am healthy")
-       console.log('I am healthy');
-     //  return "I am healthy";
-   }    
-
-  const findAllUsers = (req: Request, res: Response) =>
-   userDao.findAllUsers()
-       .then(users => res.json(users));
-const findUserById = (req: Request, res: Response) =>
-   userDao.findUserById(req.params.userid)
-       .then(user => res.json(user));
-const createUser = (req: Request, res: Response) =>{
-    console.log(' I am getting user body ');
-    console.log(JSON.stringify(req.body));
-    userDao.createUser(req.body)
-    .then(user => res.json(user));
-};
-   
-const deleteUser = (req: Request, res: Response) =>
-   userDao.deleteUser(req.params.userid)
-       .then(status => res.json(status));
-const updateUser = (req: Request, res: Response) =>
-   userDao.updateUser(req.params.userid, req.body)
-       .then(status => res.json(status));
-
-    app.get('/users/test', checkHealthy);
-    app.get('/users', findAllUsers);
-    app.get('/users/:userid', findUserById);
-    app.post('/users', createUser);
-    app.delete('/users/:userid', deleteUser);
-    app.put('/users/:userid', updateUser);
-  
-        
-
-}
-*/
 
 export default class UserController implements UserControllerI {
     private static userDao: UserDao = UserDao.getInstance();
     private static userController: UserController | null = null;
 
+      /**
+     * Creates singleton controller instance
+     * @param {Express} app Express instance to declare the RESTful Web service
+     * API
+     * @returns UserController
+     */
     public static getInstance = (app: Express): UserController => {
         if(UserController.userController === null) {
             UserController.userController = new UserController();

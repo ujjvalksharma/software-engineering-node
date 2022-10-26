@@ -1,11 +1,23 @@
+/**
+ * @file Implements DAO managing data storage of likes. Uses mongoose TuitModel
+ * to integrate with MongoDB
+ */
 import Like from "../models/Like";
 import LikeModel from "../mongoose/LikeModel";
 import LikeDaoI from "../interfaces/LikeDao";
 
+/**
+ * @class LikeDao Implements Data Access Object managing data storage
+ * of likes
+ * @property {LikeDao} UserDao Private single instance of LikeDao
+ */
 export default class LikeDao implements LikeDaoI { 
 
     private static likeDao: LikeDao | null = null;
-
+   /**
+     * Gets a single instance of MessageDao
+     * @returns return like object
+     */
     public static getInstance = (): LikeDao => {
         if(LikeDao.likeDao === null) {
             LikeDao.likeDao = new LikeDao();
