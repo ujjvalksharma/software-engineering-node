@@ -1,11 +1,23 @@
+/**
+ * @file Implements DAO managing data storage of likes. Uses mongoose TuitModel
+ * to integrate with MongoDB
+ */
 import Like from "../models/Like";
 import LikeModel from "../mongoose/LikeModel";
 import LikeDaoI from "../interfaces/LikeDao";
 
+/**
+ * @class LikeDao Implements Data Access Object managing data storage
+ * of likes
+ * @property {LikeDao} UserDao Private single instance of LikeDao
+ */
 export default class LikeDao implements LikeDaoI { 
 
     private static likeDao: LikeDao | null = null;
-
+   /**
+     * Gets a single instance of MessageDao
+     * @returns return like object
+     */
     public static getInstance = (): LikeDao => {
         if(LikeDao.likeDao === null) {
             LikeDao.likeDao = new LikeDao();
@@ -15,8 +27,11 @@ export default class LikeDao implements LikeDaoI {
     private constructor() {}
 
 
-  async likeATuit(tid: string, uid: string): Promise<Like> {
+  async likeATuit(tid: string, uid: string): Promise<any> {
+      if(!await LikeModel.exists({likedTuit:tid, likedBy: uid})){
     return await LikeModel.create({likedTuit:tid, likedBy: uid});
+      }
+    return await LikeModel.findOne({likedTuit:tid, likedBy: uid});
 }
 
 async dislikeATuit(tid: string, uid: string): Promise<any> {
@@ -24,11 +39,18 @@ async dislikeATuit(tid: string, uid: string): Promise<any> {
 }
 
 async findTuitsLikedByAUser(uid: string): Promise<any> { //modify to get array of tuit
-    return await LikeModel.find({likedBy:uid});
+  //  return await LikeModel.find({likedBy:uid})
+         return  await LikeModel
+            .find({likedBy: uid})
+            .populate("likedTuit")
+            .exec();
 }
 
 async findUsersThatLikedATuid(tid: string): Promise<any> { //modify to get array of tuit
-    return await LikeModel.find({likedTuit:tid});
+    return  await LikeModel
+            .find({likedTuit: tid})
+            .populate("likedBy")
+            .exec();
 }
 
 }
