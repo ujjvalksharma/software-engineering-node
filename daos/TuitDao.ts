@@ -46,7 +46,6 @@ export default class TuitDao implements TuitDaoI {
    }
 
    async findTuitsByUser(uid: string): Promise<any> {
-       console.log('uid: '+uid);
     return await TuitModel.findOne({postedBy:uid}); //to be changed
 }
 }
