@@ -33,7 +33,6 @@ export default class UserDao implements UserDaoI {
        return await UserModel.findById(uid);
    }
    async createUser(user: User): Promise<any> {
-       console.log(JSON.stringify(user));
        UserModel.create(user);
         return await UserModel.findOne({username:user.username});
    }
