@@ -10,7 +10,7 @@ export default interface BookmarkDao {
     * @param tid tuit id to be bookmarked
     * @param uid user id of the user who would bookmark
     */
-   bookmarkATuit(tid: string, uid: string): Promise<Bookmark>;
+   bookmarkATuit(tid: string, uid: string): Promise<Bookmark>; 
    /**
     * Unbookmarks the tuit
     * @param tid tuit id to be bookmarked 
@@ -26,5 +26,17 @@ export default interface BookmarkDao {
     * find users that bookmarked a tuit
     * @param tid tuit id to be bookmarked 
     */
-   findUsersThatBookmarkedATuid(tid: string): Promise<User[]>;
+   findUsersThatBookmarkedATuid(tid: string): Promise<any[]>;
+
+     /**
+    * Remove all tuits bookmarked by a user
+    * @param tid tuit id to be bookmarked 
+    */
+   removeTuitsBookmarkedByAUser(uid: string): Promise<any[]>;
+
+   /**
+    * Remove all users who bookmarked by a user
+    * @param tid tuit id to be bookmarked 
+    */
+   removeUsersWhoBookmarkedATuid(tid: string): Promise<any[]>;
 }

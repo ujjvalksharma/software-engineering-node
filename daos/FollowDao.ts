@@ -37,11 +37,28 @@ async deleteFollow(userFollowed: string, userFollowing: string): Promise<any> {
 }
 
 async getFollowingOfAUser(uid: string): Promise<any> { //modify to get array of tuit
-    return await FollowModel.find({userFollowed:uid});
+    return  await FollowModel
+            .find({userFollowing: uid})
+            .populate("userFollowed")
+            .exec();
 }
 
 async getFollowersOfAUser(uid: string): Promise<any> { //modify to get array of tuit
-    return await FollowModel.find({userFollowing: uid});
+    return  await FollowModel
+            .find({userFollowed: uid})
+            .populate("userFollowing")
+            .exec();
 }
+
+
+
+async removeAllPeopleWhoWereFollowingAUser(uid: string): Promise<any> {
+    return await FollowModel.deleteOne({userFollowed:uid});
+}
+
+async removeAllPeopleWhoWereFollowedByAUser(uid: string): Promise<any> {
+    return await FollowModel.deleteOne({userFollowing:uid});
+}
+
 
 }

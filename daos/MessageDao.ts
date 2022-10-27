@@ -29,7 +29,7 @@ export default class MessageDao implements MessageDaoI {
 
 
   async createMessage(message: Message): Promise<Message> {
-    return await MessageModel.create(message);
+    return await MessageModel.create(message); 
 }
 
 async deleteAMessage(messageId: string): Promise<any> {
@@ -37,11 +37,28 @@ async deleteAMessage(messageId: string): Promise<any> {
 }
 
 async getSentMessages(senderId: string): Promise<any> { //modify to get array of tuit
-    return await MessageModel.find({to:senderId});
+   // return await MessageModel.find({to:senderId});
+   return  await MessageModel
+            .find({from:senderId})
+            .populate("to")
+            .exec();
 }
 
 async getReceivedMessage(receiverId: string): Promise<any> { //modify to get array of tuit
-    return await MessageModel.find({from:receiverId});
+    return  await MessageModel
+            .find({to:receiverId})
+            .populate("from")
+            .exec();
+}
+
+
+async removeAllSendMessage(senderId: string): Promise<any> {
+    return await MessageModel.deleteOne({from:senderId});
+}
+
+
+async removeAllReceivedMessage(receiverId: string): Promise<any> {
+    return await MessageModel.deleteOne({to:receiverId});
 }
 
 }

@@ -7,7 +7,7 @@ export default interface FollowDao {
    /**
     * A user follows another user
     * @param follow follow object to be saved
-    */
+    */ 
    createFollow(follow: Follow): Promise<Follow>;
     /**
     * A user unfollows another user
@@ -25,4 +25,16 @@ export default interface FollowDao {
     * @param uid user id of whom we need to find follower
     */
    getFollowersOfAUser(uid: string): Promise<Follow[]>;
+
+    /**
+    * Remove all the people who were following a user
+    * @param uid user id 
+    */
+   removeAllPeopleWhoWereFollowingAUser(uid: string): Promise<Follow[]>;
+
+    /**
+    * Remove all the people who were followed by a user
+    * @param uid user id 
+    */
+   removeAllPeopleWhoWereFollowedByAUser(uid: string): Promise<Follow[]>;
 }

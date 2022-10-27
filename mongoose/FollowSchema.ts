@@ -11,7 +11,7 @@ import Follow from '../models/Follow';
  * @property {string} userFollowing represents the person who was following
  */
 const FollowSchema = new mongoose.Schema<Follow>({
-    followedOn: String,
+    followedOn: {type: Date, default: Date.now},
     userFollowed: {type: Schema.Types.ObjectId, ref: "UserModel"},
     userFollowing: {type: Schema.Types.ObjectId, ref: "UserModel"}
 }, {collection: "follwers"});

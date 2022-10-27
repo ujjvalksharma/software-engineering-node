@@ -5,7 +5,7 @@ import {Request, Response} from "express";
 export default interface FollowController {
     /**
     * Follow the tuit
-    * @param req request object
+    * @param req request object 
     * @param res response object
     */
     createFollow(req: Request, res: Response): void;
@@ -27,4 +27,18 @@ export default interface FollowController {
     * @param res response object
     */
     getFollowersOfAUser(req: Request, res: Response): void;
+
+    /**
+    * Remove all the people who were following a user
+    * @param req request object
+    * @param res response object
+    */
+   removeAllPeopleWhoWereFollowingAUser(req: Request, res: Response): void;
+
+   /**
+    * Remove all the people who were followed by a user
+    * @param req request object
+    * @param res response object
+    */
+   removeAllPeopleWhoWereFollowedByAUser(req: Request, res: Response): void;
 }

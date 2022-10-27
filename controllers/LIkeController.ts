@@ -37,7 +37,6 @@ export default class LikeController implements LikeControllerI {
             app.delete("/users/:uid/likes/:tid", LikeController.likeController.dislikeATuit);   
             app.get("/users/:uid/likes", LikeController.likeController.findTuitsLikedByAUser); 
             app.get("/tuits/:tid/likes", LikeController.likeController.findUsersThatLikedATuid);
-            app.get("/like/test", LikeController.likeController.likeTest);
         }
         return LikeController.likeController;
     }
@@ -56,9 +55,5 @@ export default class LikeController implements LikeControllerI {
 
            findUsersThatLikedATuid = (req: Request, res: Response)=> LikeController.likeDao.findUsersThatLikedATuid(req.params.tid)
            .then(likes => res.json(likes));
-
-           likeTest =(req: Request, res: Response) =>{
-               res.send('like is working!!')
-           }
 
 }

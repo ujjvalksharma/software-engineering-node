@@ -37,11 +37,29 @@ async unBookmarkATuit(tid: string, uid: string): Promise<any> {
 }
 
 async findTuitsBookmarkedByAUser(uid: string): Promise<any> { //modify to get array of tuit
-    return await BookmarkModel.find({likedBy:uid});
+  //  return await BookmarkModel.find({likedBy:uid});
+    return  await BookmarkModel
+  .find({bookmarkedBy:uid})
+  .populate("bookmarkedTuit")
+  .exec();
 }
 
 async findUsersThatBookmarkedATuid(tid: string): Promise<any> { //modify to get array of tuit
-    return await BookmarkModel.find({likedTuit:tid});
-}
+   // return await BookmarkModel.find({likedTuit:tid});
+   return  await BookmarkModel
+  .find({bookmarkedTuit:tid})
+  .populate("bookmarkedBy")
+  .exec();
 
 }
+
+async removeTuitsBookmarkedByAUser(uid: string): Promise<any> {
+  return await BookmarkModel.deleteOne({ bookmarkedBy: uid});
+}
+
+async removeUsersWhoBookmarkedATuid(tid: string): Promise<any> {
+return await BookmarkModel.deleteOne({ bookmarkedTuit: tid});
+}
+
+
+} 

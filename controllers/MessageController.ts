@@ -37,7 +37,8 @@ export default class MessageController implements MessageControllerI {
             app.delete("/messages/:messageId", MessageController.messageController.deleteAMessage);   
             app.get("/messages/sender/:senderId", MessageController.messageController.getSentMessages); 
             app.get("/messages/recevier/:recevierId", MessageController.messageController.getReceivedMessage);
-            app.get("/messages/test", MessageController.messageController.messageTest);
+            app.delete("/messages/sender/:senderId", MessageController.messageController.removeAllSendMessage);
+            app.delete("/messages/recevier/:recevierId", MessageController.messageController.removeAllReceivedMessage);
         }
         return MessageController.messageController;
     }
@@ -57,8 +58,11 @@ export default class MessageController implements MessageControllerI {
            getReceivedMessage = (req: Request, res: Response)=> MessageController.messageDao.getReceivedMessage(req.params.recevierId)
            .then(messages => res.json(messages));
 
-           messageTest =(req: Request, res: Response) =>{
-               res.send('like is working!!')
-           }
+
+           removeAllReceivedMessage = (req: Request, res: Response) => MessageController.messageDao.removeAllReceivedMessage(req.params.recevierId)
+           .then(status => res.json(status));
+
+           removeAllSendMessage = (req: Request, res: Response) => MessageController.messageDao.removeAllSendMessage(req.params.senderId)
+           .then(status => res.json(status));
 
 }

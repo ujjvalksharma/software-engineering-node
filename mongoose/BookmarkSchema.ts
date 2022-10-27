@@ -11,8 +11,8 @@ import Bookmark from "../models/Bookmark";
  * @property {string} bookmarkedTuit represents the tuit that got bookmarked
  */
 const bookmarkSchema = new mongoose.Schema<Bookmark>({
-    postedOn: String,
+    postedOn: {type: Date, default: Date.now},
     bookmarkedBy: {type: Schema.Types.ObjectId, ref: "UserModel"},
     bookmarkedTuit: {type: Schema.Types.ObjectId, ref: "TuitModel"}
 }, {collection: "bookmarks"});
-export default bookmarkSchema;
+export default bookmarkSchema; 

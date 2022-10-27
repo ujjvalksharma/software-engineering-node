@@ -7,7 +7,7 @@ export default interface BookmarkController {
     * Bookmarks the tuit
     * @param req request object
     * @param res response object
-    */
+    */ 
     bookmarkATuit(req: Request, res: Response): void;
     /**
     * Unbookmarks the tuit
@@ -27,6 +27,20 @@ export default interface BookmarkController {
     * @param res response object
     */
     findUsersThatBookmarkedATuid(req: Request, res: Response): void;
+
+  /**
+    * Remove all tuits bookmarked by a user
+    * @param req request object
+    * @param res response object
+    */
+    removeTuitsBookmarkedByAUser(req: Request, res: Response): void;
+
+   /**
+    * Remove all users who bookmarked by a user
+    * @param req request object
+    * @param res response object
+    */
+   removeUsersWhoBookmarkedATuid(req: Request, res: Response): void;
 }
 
 

@@ -11,7 +11,7 @@ import Like from "../models/Like";
  * @property {string} likedTuit represents the tuit which got liked
  */
 const LikeSchema = new mongoose.Schema<Like>({
-    postedOn: String,
+    postedOn: {type: Date, default: Date.now}, 
     likedBy: {type: Schema.Types.ObjectId, ref: "UserModel"},
     likedTuit: {type: Schema.Types.ObjectId, ref: "TuitModel"}
 }, {collection: "likes"});

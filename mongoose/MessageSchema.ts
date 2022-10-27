@@ -12,7 +12,7 @@ import Message from "../models/Message";
  * @property {string} from represents the person who sent the message
  */
 const MessageSchema = new mongoose.Schema<Message>({
-    sentOn: String,
+    sentOn: {type: Date, default: Date.now},
     message: String,
     to: {type: Schema.Types.ObjectId, ref: "UserModel"},
     from: {type: Schema.Types.ObjectId, ref: "UserModel"}

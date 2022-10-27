@@ -37,6 +37,8 @@ export default class BookmarkController implements BookmarkControllerI {
             app.delete("/users/:uid/bookmarks/:tid", BookmarkController.bookmarkController.unBookmarkATuit);   
             app.get("/users/:uid/bookmarks", BookmarkController.bookmarkController.findTuitsBookmarkedByAUser); 
             app.get("/tuits/:tid/bookmarks", BookmarkController.bookmarkController.findUsersThatBookmarkedATuid);
+            app.delete("/users/:uid/bookmarks", BookmarkController.bookmarkController.removeTuitsBookmarkedByAUser); 
+            app.delete("/tuits/:tid/bookmarks", BookmarkController.bookmarkController.removeUsersWhoBookmarkedATuid); 
         }
         return BookmarkController.bookmarkController;
     }
@@ -45,7 +47,7 @@ export default class BookmarkController implements BookmarkControllerI {
 
 
            bookmarkATuit = (req: Request, res: Response) => BookmarkController.bookmarkDao.bookmarkATuit(req.params.tid,req.params.uid)
-           .then(bookmark => res.json(bookmark)); 
+           .then(bookmark => res.json(bookmark));  
 
            unBookmarkATuit = (req: Request, res: Response) => BookmarkController.bookmarkDao.unBookmarkATuit(req.params.tid,req.params.uid)
            .then(status => res.json(status));
@@ -54,6 +56,12 @@ export default class BookmarkController implements BookmarkControllerI {
            .then(bookmarks => res.json(bookmarks));
 
            findUsersThatBookmarkedATuid = (req: Request, res: Response)=> BookmarkController.bookmarkDao.findUsersThatBookmarkedATuid(req.params.tid)
+           .then(bookmarks => res.json(bookmarks));
+
+           removeTuitsBookmarkedByAUser = (req: Request, res: Response) => BookmarkController.bookmarkDao.removeTuitsBookmarkedByAUser(req.params.uid)
+           .then(bookmarks => res.json(bookmarks));
+
+           removeUsersWhoBookmarkedATuid = (req: Request, res: Response)=> BookmarkController.bookmarkDao.removeUsersWhoBookmarkedATuid(req.params.tid)
            .then(bookmarks => res.json(bookmarks));
 
 }

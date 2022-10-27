@@ -24,7 +24,21 @@ export default interface MessageController {
      /**
      * Get messages received by a user
      * @param req request body
-     * @param res response body
+     * @param res response body 
      */
     getReceivedMessage(req: Request, res: Response): void;
+
+    /**
+     * Removed all recived messages by a recevier
+     * @param req request body
+     * @param res response body 
+     */
+    removeAllReceivedMessage(req: Request, res: Response): void;
+
+     /**
+     * Removed all send messages by a sender
+     * @param req request body
+     * @param res response body 
+     */
+    removeAllSendMessage(req: Request, res: Response): void;
 }

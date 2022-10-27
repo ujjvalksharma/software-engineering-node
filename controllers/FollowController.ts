@@ -35,9 +35,10 @@ export default class FollowController implements FollowControllerI {
             FollowController.followController = new FollowController();
             app.post("/follow", FollowController.followController.createFollow);
             app.delete("/follow/userFollowed/:userFollowed/userFollowing/:userFollowing", FollowController.followController.deleteFollow);   
-            app.get("/follow/followers/:uid", FollowController.followController.getFollowingOfAUser); 
-            app.get("/follow/following/:uid", FollowController.followController.getFollowersOfAUser);
-            app.get("/follow/test", FollowController.followController.followTest);
+            app.get("/follow/followers/:uid", FollowController.followController. getFollowersOfAUser); 
+            app.get("/follow/following/:uid", FollowController.followController.getFollowingOfAUser);
+            app.delete("/follow/following/:uid", FollowController.followController. removeAllPeopleWhoWereFollowingAUser); 
+            app.delete("/follow/follower/:uid", FollowController.followController.removeAllPeopleWhoWereFollowedByAUser);
         }
         return FollowController.followController;
     }
@@ -57,8 +58,9 @@ export default class FollowController implements FollowControllerI {
            getFollowersOfAUser = (req: Request, res: Response)=> FollowController.followDao.getFollowersOfAUser(req.params.uid)
            .then(follwers => res.json(follwers));
 
-           followTest =(req: Request, res: Response) =>{
-               res.send('follow is working!!')
-           }
+           removeAllPeopleWhoWereFollowingAUser = (req: Request, res: Response) => FollowController.followDao.removeAllPeopleWhoWereFollowingAUser(req.params.uid)
+           .then(status => res.json(status));
 
+           removeAllPeopleWhoWereFollowedByAUser = (req: Request, res: Response) => FollowController.followDao.removeAllPeopleWhoWereFollowedByAUser(req.params.uid)
+           .then(status => res.json(status));
 }
