@@ -1,3 +1,6 @@
+/**
+ * @file Controller RESTful Web service API for tuits resource
+ */
 import {Request, Response, Express} from "express";
 import TuitDao from "../daos/TuitDao";
 import TuitControllerI from "../interfaces/TuitController";
@@ -7,6 +10,12 @@ export default class TuitController implements TuitControllerI {
     private static tuitDao: TuitDao = TuitDao.getInstance();
     private static tuitController: TuitController | null = null;
 
+    /**
+     * Creates singleton controller instance
+     * @param {Express} app Express instance to declare the RESTful Web service
+     * API
+     * @returns TuitController
+     */
     public static getInstance = (app: Express): TuitController => {
 
         if(TuitController.tuitController === null) {
