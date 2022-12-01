@@ -12,6 +12,7 @@ import AuthenticationController from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
 const cors = require('cors')
 const app = express();
+const session = require("express-session");
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers',
@@ -20,6 +21,21 @@ app.use(function (req, res, next) {
         'GET, POST, PUT, PATCH, DELETE, OPTIONS');
     next();
 });
+app.use(
+    cors({
+      credentials: true,
+      origin: true,
+      optionsSuccessStatus: 200,
+    })
+  );
+
+let sess = {
+    secret: "UJJVAL",
+    cookie: {
+      secure: false,
+    },
+  };
+  app.use(session(sess));
 app.use(express.json());
 
 
@@ -39,6 +55,10 @@ app.get('/hello', (req: Request, res: Response) =>
     const followController = FollowController.getInstance(app);  
     const authenticationController = AuthenticationController.getInstance(app);  
 
+    if (process.env.ENV === "PRODUCTION") {
+        app.set("trust proxy", 1); // trust first proxy
+        sess.cookie.secure = true; // serve secure cookies
+      }   
 /**
  * Start a server listening at port 4000 locally
  * but use environment variable PORT on Heroku if available.
