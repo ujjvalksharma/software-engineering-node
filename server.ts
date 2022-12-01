@@ -7,7 +7,8 @@ import TuitController from "./controllers/TuitController";
 import LikeController from "./controllers/LikeController"; 
 import MessageController from "./controllers/MessageController";     
 import BookmarkController from "./controllers/BookmarkController";   
-import FollowController from "./controllers/FollowController";     
+import FollowController from "./controllers/FollowController";    
+import AuthenticationController from "./controllers/AuthenticationController";     
 import mongoose from "mongoose";
 const cors = require('cors')
 const app = express();
@@ -36,6 +37,7 @@ app.get('/hello', (req: Request, res: Response) =>
     const bookmarkController = BookmarkController.getInstance(app);
     const messageController = MessageController.getInstance(app);  
     const followController = FollowController.getInstance(app);  
+    const authenticationController = AuthenticationController.getInstance(app);  
 
 /**
  * Start a server listening at port 4000 locally

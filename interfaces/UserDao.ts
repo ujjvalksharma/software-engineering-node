@@ -29,4 +29,11 @@ export default interface UserDao {
     * @param uid user id  of the user to be deleted
     */
    deleteUser(uid: string): Promise<any>;
+
+   /**
+    * Get user by username
+    * @param username username of the user
+    */
+   findUserByUsername(username: string): Promise<User>;
+   
 }
