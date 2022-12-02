@@ -23,6 +23,8 @@ export default class UserController implements UserControllerI {
                 UserController.userController.findAllUsers);
             app.get("/users/:uid",
                 UserController.userController.findUserById);
+                app.get("/users/:username",
+                UserController.userController.findUserByUsername);
             app.post("/users",
                 UserController.userController.createUser);
             app.put("/users/:uid",
@@ -43,6 +45,10 @@ export default class UserController implements UserControllerI {
     findUserById = (req: Request, res: Response) =>
         UserController.userDao.findUserById(req.params.uid)
             .then((user) => res.json(user));
+
+            findUserByUsername = (req: Request, res: Response) =>
+            UserController.userDao.findUserByUsername(req.params.username)
+                .then((user) => res.json(user));
     
 
     createUser = (req: Request, res: Response) =>

@@ -16,6 +16,14 @@ export default interface UserControllerI {
     * @param res response object
     */
    findUserById(req: Request, res: Response): void;
+
+      /**
+    * Get tuit by its username
+    * @param req request object
+    * @param res response object
+    */
+   findUserByUsername(req: Request, res: Response): void;
+
     /**
     * Create tuit
     * @param req request object

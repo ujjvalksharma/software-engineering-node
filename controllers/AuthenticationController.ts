@@ -21,13 +21,13 @@ export default class AuthenticationController implements AuthenticationControlle
         if(AuthenticationController.authenticationController === null) {
           AuthenticationController.authenticationController = new AuthenticationController();
 
-            app.get("/api/auth/login",
+            app.put("/auth/login",
             AuthenticationController.authenticationController.login);
-            app.get("/api/auth/profile",
+            app.get("/auth/profile",
             AuthenticationController.authenticationController.profile);
-            app.post("/api/auth/logout",
+            app.get("/auth/logout",
             AuthenticationController.authenticationController.logout);
-            app.put("/api/auth/signup",
+            app.put("/auth/signup",
             AuthenticationController.authenticationController.signup);
 
         }
