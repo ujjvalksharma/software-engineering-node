@@ -7,7 +7,8 @@ import TuitController from "./controllers/TuitController";
 import LikeController from "./controllers/LikeController"; 
 import MessageController from "./controllers/MessageController";     
 import BookmarkController from "./controllers/BookmarkController";   
-import FollowController from "./controllers/FollowController";    
+import FollowController from "./controllers/FollowController";  
+import DislikeController from "./controllers/DislikeController";    
 import AuthenticationController from "./controllers/AuthenticationController";     
 import mongoose from "mongoose";
 const cors = require('cors')
@@ -54,6 +55,7 @@ app.get('/hello', (req: Request, res: Response) =>
     const messageController = MessageController.getInstance(app);  
     const followController = FollowController.getInstance(app);  
     const authenticationController = AuthenticationController.getInstance(app);  
+    const dislikeController = DislikeController.getInstance(app);  
 
     if (process.env.ENV === "PRODUCTION") {
         app.set("trust proxy", 1); // trust first proxy
