@@ -23,7 +23,7 @@ export default class UserController implements UserControllerI {
                 UserController.userController.findAllUsers);
             app.get("/users/:uid",
                 UserController.userController.findUserById);
-                app.get("/users/:username",
+                app.get("/users/username/:username",
                 UserController.userController.findUserByUsername);
             app.post("/users",
                 UserController.userController.createUser);
@@ -31,6 +31,8 @@ export default class UserController implements UserControllerI {
                 UserController.userController.updateUser);
             app.delete("/users/:uid",
                 UserController.userController.deleteUser);
+            app.delete("/users/username/:username",
+                UserController.userController.deleteUserByUsername);
 
         }
         return UserController.userController;
@@ -63,6 +65,10 @@ export default class UserController implements UserControllerI {
     deleteUser = (req: Request, res: Response) =>
         UserController.userDao.deleteUser(req.params.uid)
             .then((status) => res.send(status));
+
+            deleteUserByUsername = (req: Request, res: Response) =>
+            UserController.userDao.deleteUserByUsername(req.params.username)
+                .then((status) => res.send(status));
 
 
 };

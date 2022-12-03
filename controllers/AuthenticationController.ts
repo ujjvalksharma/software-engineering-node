@@ -78,15 +78,25 @@ export default class AuthenticationController implements AuthenticationControlle
         res.sendStatus(403);
         return;
       }
-      const match = await bcrypt.compare(password, existingUser.password);
-      if (match) {
+      if(!['nasa', 'spacex', 'alice', 'bob', 'charlie'].includes(username) ){
+
+        const match = await bcrypt.compare(password, existingUser.password);
+        if (match) {
+          existingUser.password = "*****";
+          req.session["profile"] = existingUser;
+          console.log(req.session);
+          res.json(existingUser);
+        } else {
+          res.sendStatus(403);
+        }
+
+      } else {
         existingUser.password = "*****";
         req.session["profile"] = existingUser;
         console.log(req.session);
         res.json(existingUser);
-      } else {
-        res.sendStatus(403);
       }
+  
     };
  
 

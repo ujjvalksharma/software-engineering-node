@@ -36,6 +36,14 @@ export default interface UserControllerI {
     * @param res response object
     */
    deleteUser(req: Request, res: Response): void;
+
+   /**
+    * Delete tuit
+    * @param req request object
+    * @param res response object
+    */
+   deleteUserByUsername(req: Request, res: Response): void;
+
     /**
     * Update tuit
     * @param req request object
