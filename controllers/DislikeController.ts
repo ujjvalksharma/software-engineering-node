@@ -36,6 +36,7 @@ export default class DislikeController implements DislikeControllerI {
             app.post("/users/:uid/dislikes/:tid", DislikeController.dislikeController.dislikeATuit);   
             app.get("/users/:uid/dislikes", DislikeController.dislikeController.findTuitsDislikedByAUser); 
             app.get("/tuits/:tid/dislikes", DislikeController.dislikeController.findUsersThatDislikedATuid);
+            app.delete("/users/:uid/dislikes/:tid", DislikeController.dislikeController.deleteDislikeTuid); 
         }
         return DislikeController.dislikeController;
     }
@@ -50,5 +51,8 @@ export default class DislikeController implements DislikeControllerI {
 
            findUsersThatDislikedATuid = (req: Request, res: Response)=> DislikeController.dislikeDao.findUsersThatdislikedATuid(req.params.tid)
            .then(dislikes => res.json(dislikes));
+
+           deleteDislikeTuid = (req: Request, res: Response) => DislikeController.dislikeDao.deleteDislikeTuid(req.params.tid,req.params.uid)
+           .then(status => res.json(status));
 
 }
