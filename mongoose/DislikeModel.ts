@@ -3,7 +3,7 @@
  * documents in the likes collection
  */
 import mongoose from "mongoose";
-import LikeSchema from "./DislikeSchema";
+import DislikeSchema from "./DislikeSchema";
 
-const dislikeModel = mongoose.model('DislikeModel', LikeSchema);
+const dislikeModel = mongoose.model('DislikeModel', DislikeSchema);
 export default dislikeModel;

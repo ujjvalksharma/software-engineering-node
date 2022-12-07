@@ -21,6 +21,12 @@ export default interface DislikeController {
      * @param res response object
      */
     findUsersThatDislikedATuid(req: Request, res: Response): void;
+   /**
+     * Get users who disliked a tuit
+     * @param req request object
+     * @param res response object
+     */
+    deleteDislikeTuid(req: Request, res: Response): void;
 }
 
 

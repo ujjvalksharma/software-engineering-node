@@ -35,4 +35,10 @@ export default interface TuitDao {
     * @param tid tuit id for which tuit is to be deleted
     */
    deleteTuit(tid: string): Promise<any>;
+
+ /**
+    * Delete tuit by user
+    * @param tid tuit id for which tuit is to be deleted
+    */
+   deleteAllTuitsByUser(tid: string): Promise<any>;
 }

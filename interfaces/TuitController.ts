@@ -41,4 +41,11 @@ export default interface TuitController {
     * @param res response object
     */
    deleteTuit(req: Request, res: Response): void;
+
+ /**
+    * Delete tuit by user
+    * @param req request object
+    * @param res response object
+    */
+   deleteAllTuitsByUser(req: Request, res: Response): void;
 }

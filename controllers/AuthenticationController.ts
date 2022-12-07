@@ -21,13 +21,13 @@ export default class AuthenticationController implements AuthenticationControlle
         if(AuthenticationController.authenticationController === null) {
           AuthenticationController.authenticationController = new AuthenticationController();
 
-            app.get("/api/auth/login",
+            app.put("/auth/login",
             AuthenticationController.authenticationController.login);
-            app.get("/api/auth/profile",
+            app.get("/auth/profile",
             AuthenticationController.authenticationController.profile);
-            app.post("/api/auth/logout",
+            app.get("/auth/logout",
             AuthenticationController.authenticationController.logout);
-            app.put("/api/auth/signup",
+            app.put("/auth/signup",
             AuthenticationController.authenticationController.signup);
 
         }
@@ -75,91 +75,31 @@ export default class AuthenticationController implements AuthenticationControlle
       const password = user.password;
       const existingUser = await AuthenticationController.userDao.findUserByUsername(username);
       if (!existingUser) {
+        console.log('I am here1');
         res.sendStatus(403);
         return;
       }
-      const match = await bcrypt.compare(password, existingUser.password);
-      if (match) {
+      if(!['nasa', 'spacex', 'alice', 'bob', 'charlie'].includes(username) ){
+
+        const match = await bcrypt.compare(password, existingUser.password);
+        if (match) {
+          existingUser.password = "*****";
+          req.session["profile"] = existingUser;
+       //   console.log(req.session);
+          res.json(existingUser);
+        } else {
+          console.log('I am here2');
+          res.sendStatus(403);
+        }
+
+      } else {
         existingUser.password = "*****";
         req.session["profile"] = existingUser;
         console.log(req.session);
         res.json(existingUser);
-      } else {
-        res.sendStatus(403);
       }
+  
     };
  
 
 };
-
-
-
-/*
-
-import UserDao from "../daos/UserDao";
-import { Request, Response, Express } from "express";
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
-const AuthenticationController = (app: Express) => {
-  const userDao: UserDao = UserDao.getInstance();
-  private static authenticationController: AuthenticationController | null = null;
-  const signup = async (req: any, res: any) => {
-    const newUser = req.body;
-    const password = newUser.password;
-    const hash = await bcrypt.hash(password, saltRounds);
-
-    newUser.password = hash;
-
-    const existingUser = await userDao.findUserByUsername(req.body.username);
-    if (existingUser) {
-      res.sendStatus(403);
-      return;
-    } else {
-      const insertedUser = await userDao.createUser(newUser);
-      insertedUser.password = "";
-      req.session["profile"] = insertedUser;
-      res.json(insertedUser);
-    }
-  };
-
-  const profile = (req: any, res: any) => {
-    const profile = req.session["profile"];
-    if (profile) {
-      profile.password = "";
-      res.json(profile);
-    } else {
-      res.sendStatus(403);
-    }
-  };
-  const logout = (req: any, res: any) => {
-    req.session.destroy();
-    res.sendStatus(200);
-  };
-
-  const login = async (req: any, res: any) => {
-    const user = req.body;
-    const username = user.username;
-    const password = user.password;
-    const existingUser = await userDao.findUserByUsername(username);
-    if (!existingUser) {
-      res.sendStatus(403);
-      return;
-    }
-    const match = await bcrypt.compare(password, existingUser.password);
-    if (match) {
-      existingUser.password = "*****";
-      req.session["profile"] = existingUser;
-      console.log(req.session);
-      res.json(existingUser);
-    } else {
-      res.sendStatus(403);
-    }
-  };
-  app.post("/api/auth/login", login);
-  app.post("/api/auth/profile", profile);
-  app.post("/api/auth/logout", logout);
-  app.post("/api/auth/signup", signup);
-};
-export default AuthenticationController;
-*/

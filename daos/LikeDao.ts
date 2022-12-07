@@ -28,6 +28,7 @@ export default class LikeDao implements LikeDaoI {
 
 
   async likeATuit(tid: string, uid: string): Promise<any> {
+    console.log('I am liking a tuit');
       if(!await LikeModel.exists({likedTuit:tid, likedBy: uid})){
     return await LikeModel.create({likedTuit:tid, likedBy: uid});
       }
@@ -35,7 +36,7 @@ export default class LikeDao implements LikeDaoI {
 }
 
 async dislikeATuit(tid: string, uid: string): Promise<any> {
-    return await LikeModel.deleteOne({likedTuit:tid, likedBy: uid});
+    return await LikeModel.deleteMany({likedTuit:tid, likedBy: uid});
 }
 
 async findTuitsLikedByAUser(uid: string): Promise<any> { //modify to get array of tuit

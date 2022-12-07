@@ -23,12 +23,16 @@ export default class UserController implements UserControllerI {
                 UserController.userController.findAllUsers);
             app.get("/users/:uid",
                 UserController.userController.findUserById);
+                app.get("/users/username/:username",
+                UserController.userController.findUserByUsername);
             app.post("/users",
                 UserController.userController.createUser);
             app.put("/users/:uid",
                 UserController.userController.updateUser);
             app.delete("/users/:uid",
                 UserController.userController.deleteUser);
+            app.delete("/users/username/:username",
+                UserController.userController.deleteUserByUsername);
 
         }
         return UserController.userController;
@@ -36,13 +40,19 @@ export default class UserController implements UserControllerI {
 
     private constructor() {}
 
-    findAllUsers = (req: Request, res: Response) =>
-        UserController.userDao.findAllUsers()
+    findAllUsers = (req: Request, res: Response) =>{
+       // console.log('find all users is called');
+       return UserController.userDao.findAllUsers()
             .then((users) => res.json(users));
+    }
 
     findUserById = (req: Request, res: Response) =>
         UserController.userDao.findUserById(req.params.uid)
             .then((user) => res.json(user));
+
+            findUserByUsername = (req: Request, res: Response) =>
+            UserController.userDao.findUserByUsername(req.params.username)
+                .then((user) => res.json(user));
     
 
     createUser = (req: Request, res: Response) =>
@@ -57,6 +67,10 @@ export default class UserController implements UserControllerI {
     deleteUser = (req: Request, res: Response) =>
         UserController.userDao.deleteUser(req.params.uid)
             .then((status) => res.send(status));
+
+            deleteUserByUsername = (req: Request, res: Response) =>
+            UserController.userDao.deleteUserByUsername(req.params.username)
+                .then((status) => res.send(status));
 
 
 };

@@ -28,7 +28,7 @@ export default class DislikeDao implements DisLikeDaoI {
 
 
 async dislikeATuit(tid: string, uid: string): Promise<any> {
-    return await DislikeModel.deleteOne({dislikedTuit:tid, dislikedBy: uid});
+    return await DislikeModel.create({dislikedTuit:tid, dislikedBy: uid});
 }
 
 async findTuitsDislikedByAUser(uid: string): Promise<any> { //modify to get array of tuit
@@ -44,6 +44,10 @@ async findUsersThatdislikedATuid(tid: string): Promise<any> { //modify to get ar
             .find({dislikedTuit: tid})
             .populate("dislikedBy")
             .exec();
+}
+
+async deleteDislikeTuid(tid: string, uid: string): Promise<any> {
+    return await DislikeModel.deleteMany({dislikedTuit:tid, dislikedBy: uid});
 }
 
 }
