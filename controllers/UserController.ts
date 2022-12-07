@@ -40,9 +40,11 @@ export default class UserController implements UserControllerI {
 
     private constructor() {}
 
-    findAllUsers = (req: Request, res: Response) =>
-        UserController.userDao.findAllUsers()
+    findAllUsers = (req: Request, res: Response) =>{
+       // console.log('find all users is called');
+       return UserController.userDao.findAllUsers()
             .then((users) => res.json(users));
+    }
 
     findUserById = (req: Request, res: Response) =>
         UserController.userDao.findUserById(req.params.uid)

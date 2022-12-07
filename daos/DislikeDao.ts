@@ -47,7 +47,7 @@ async findUsersThatdislikedATuid(tid: string): Promise<any> { //modify to get ar
 }
 
 async deleteDislikeTuid(tid: string, uid: string): Promise<any> {
-    return await DislikeModel.deleteOne({dislikedTuit:tid, dislikedBy: uid});
+    return await DislikeModel.deleteMany({dislikedTuit:tid, dislikedBy: uid});
 }
 
 }
