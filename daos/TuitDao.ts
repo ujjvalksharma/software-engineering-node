@@ -47,7 +47,10 @@ export default class TuitDao implements TuitDaoI {
    }
 
    async findTuitsByUser(uid: string): Promise<any> {
-    return await TuitModel.find({postedBy:uid}); //to be changed
+    return await TuitModel
+    .find({postedBy:uid})
+    .populate("postedBy")
+    .exec(); ; //to be changed
 }
 
 async deleteAllTuitsByUser(uid: string): Promise<any> {
