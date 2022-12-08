@@ -44,7 +44,8 @@ async findTuitsLikedByAUser(uid: string): Promise<any> { //modify to get array o
          return  await LikeModel
             .find({likedBy: uid})
             .populate("likedTuit")
-            .exec();
+            .populate("likedBy")
+            .exec(); 
 }
 
 async findUsersThatLikedATuid(tid: string): Promise<any> { //modify to get array of tuit

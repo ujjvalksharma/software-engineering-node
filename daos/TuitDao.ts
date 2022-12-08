@@ -28,7 +28,8 @@ export default class TuitDao implements TuitDaoI {
     private constructor() {}
     
    async findAllTuits(): Promise<Tuit[]> {
-       return await TuitModel.find();
+       return await TuitModel
+       .find();
    }
    async findTuitById(tuidId: string): Promise<any> {
        return await TuitModel.findById(tuidId);
@@ -46,7 +47,10 @@ export default class TuitDao implements TuitDaoI {
    }
 
    async findTuitsByUser(uid: string): Promise<any> {
-    return await TuitModel.find({postedBy:uid}); //to be changed
+    return await TuitModel
+    .find({postedBy:uid})
+    .populate("postedBy")
+    .exec(); ; //to be changed
 }
 
 async deleteAllTuitsByUser(uid: string): Promise<any> {

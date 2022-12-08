@@ -36,6 +36,7 @@ async findTuitsDislikedByAUser(uid: string): Promise<any> { //modify to get arra
          return  await DislikeModel
             .find({dislikedBy: uid})
             .populate("dislikedTuit")
+            .populate("dislikedBy")
             .exec();
 }
 
