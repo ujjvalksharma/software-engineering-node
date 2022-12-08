@@ -4,7 +4,7 @@ import User from "../models/User";
 /**
  * @file This file is an interface for using likes collections
  */
-export default interface DislikeDao {
+export default interface DislikeDao { 
    /**
     * Tuit that is disliked
     * @param tid tuit id which is disliked
@@ -15,10 +15,10 @@ export default interface DislikeDao {
     * Find tuits that disliked a tuit
     * @param uid user who likes the tuit
     */
-   findTuitsDislikedByAUser(uid: string): Promise<Tuit[]>;
+   findTuitsDislikedByAUser(uid: string): Promise<any>;
    /**
     * Find users that disliked a tuit
     * @param tid tuit that is liked
     */
-   findUsersThatdislikedATuid(tid: string): Promise<User[]>;
+   findUsersThatdislikedATuid(tid: string): Promise<any>;
 }
