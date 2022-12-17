@@ -47,7 +47,7 @@ app.get('/hello', (req: Request, res: Response) =>
     const bookmarkController = BookmarkController.getInstance(app);
     const messageController = MessageController.getInstance(app);  
     const followController = FollowController.getInstance(app);  
-    const authenticationController = AuthenticationController.getInstance(app);  
+    const authenticationController = AuthenticationController(app);  
     const dislikeController = DislikeController.getInstance(app);  
 /**
  * Start a server listening at port 4000 locally
